@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:,">
+  <title>Friendslop Playtest</title>
+  <style>
+    :root {
+      --bg: #0f1218;
+      --bg-2: #161b24;
+      --card: #1c222d;
+      --line: #2a3140;
+      --text: #eef1f6;
+      --muted: #8b93a3;
+      --accent: #ffcf3f;
+      --accent-ink: #1a1400;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(1200px 500px at 50% -10%, #23314a 0%, transparent 70%), var(--bg);
+      color: var(--text);
+      font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    main { max-width: 1180px; margin: 0 auto; padding: 36px 16px 56px; }
+
+    header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .brand { margin: 0; font: 900 26px/1 "Arial Black", system-ui, sans-serif; letter-spacing: -.01em; text-transform: uppercase; }
+    .brand span { color: var(--accent); }
+    .steps { display: flex; gap: 6px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+    .steps b { color: var(--text); font-weight: 600; }
+    .steps i { font-style: normal; opacity: .5; }
+
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); }
+
+    .card {
+      position: relative; display: flex; flex-direction: column;
+      background: var(--card); border-radius: var(--radius); overflow: hidden;
+      box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 10px 30px rgba(0,0,0,.35);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 1px 0 rgba(255,255,255,.06) inset, 0 18px 40px rgba(0,0,0,.5); }
+
+    .cover { position: relative; display: block; aspect-ratio: 32 / 15; background: var(--bg-2); overflow: hidden; }
+    .cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+    .card:hover .cover img { transform: scale(1.04); }
+    .cover .fallback {
+      position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; text-align: center;
+      background: linear-gradient(135deg, #3b5bdb, #9c36b5 60%, #f08c00);
+      font: 900 34px/1 "Arial Black", system-ui, sans-serif; text-transform: uppercase; color: #fff;
+      text-shadow: 0 4px 0 rgba(0,0,0,.35);
+    }
+    .pitch {
+      position: absolute; left: 0; right: 0; top: 0; padding: 12px 14px 32px; margin: 0;
+      background: linear-gradient(0deg, transparent, rgba(0,0,0,.8));
+      font-size: 13px; color: #e9ecf2; opacity: 0; transform: translateY(-6px); transition: opacity .18s, transform .18s;
+    }
+    .card:hover .pitch, .card:focus-within .pitch { opacity: 1; transform: none; }
+
+    .bar { display: flex; align-items: center; gap: 8px; padding: 12px; }
+    .name { flex: 1; min-width: 0; margin: 0; font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .chip { flex: none; padding: 3px 8px; border-radius: 999px; background: var(--bg-2); color: var(--muted); font-size: 12px; }
+    .play {
+      flex: none; padding: 8px 16px; border-radius: 9px; background: var(--accent); color: var(--accent-ink);
+      font-weight: 800; text-decoration: none; letter-spacing: .02em;
+    }
+    .play:hover { filter: brightness(1.08); }
+    .fb {
+      flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9px;
+      background: var(--bg-2); color: var(--muted); text-decoration: none; font-size: 16px;
+    }
+    .fb:hover { color: var(--text); }
+
+    /* Game mới nhất: thẻ lớn chiếm cả hàng */
+    .card.featured { grid-column: 1 / -1; }
+    .card.featured .cover { max-height: 480px; } /* giữ tỉ lệ ảnh, chỉ cắt trên/dưới trên màn hình rất rộng */
+    .card.featured .name { font-size: 20px; }
+    .card.featured .play { padding: 10px 22px; font-size: 16px; }
+    .card.featured .pitch { font-size: 15px; padding: 16px 18px 40px 130px; }
+    .tag-new {
+      position: absolute; top: 14px; left: 14px; padding: 4px 10px; border-radius: 999px;
+      background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 800; letter-spacing: .04em;
+    }
+
+    .empty { padding: 56px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius); }
+    footer { margin-top: 28px; color: var(--muted); font-size: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1 class="brand">Friendslop <span>Playtest</span></h1>
+      <div class="steps" aria-label="Cách chơi">
+        <b>Chơi</b><i>→</i><b>Tạo phòng</b><i>→</i><b>Gửi link cho bạn</b><i>·</i>đeo tai nghe 🎧
+      </div>
+    </header>
+
+    <div id="games" class="grid" aria-live="polite"></div>
+    <footer id="built"></footer>
+  </main>
+
+  <script>
+    const FEEDBACK_BASE = 'https://github.com/nghuylychee/friendslop-playtest/issues/new?template=feedback.yml';
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const feedbackUrl = (g) => g.feedback_url || `${FEEDBACK_BASE}&title=${encodeURIComponent(`[feedback] ${g.slug}`)}`;
+    // Tên ngắn trên thẻ: bỏ phần "Game Zero — " nếu có
+    const shortName = (t) => String(t).split(' — ').pop();
+
+    function card(g, i) {
+      const href = `./${encodeURIComponent(g.slug)}/`;
+      const cover = g.thumb
+        ? `<img src="./${esc(g.thumb)}" alt="${esc(g.title)}" loading="lazy">`
+        : `<div class="fallback">${esc(shortName(g.title))}</div>`;
+      return `
+        <article class="card${i === 0 ? ' featured' : ''}">
+          <a class="cover" href="${href}" aria-label="Chơi ${esc(g.title)}">
+            ${cover}
+            ${i === 0 ? '<span class="tag-new">MỚI NHẤT</span>' : ''}
+            ${g.pitch ? `<p class="pitch">${esc(g.pitch)}</p>` : ''}
+          </a>
+          <div class="bar">
+            <h2 class="name" title="${esc(g.title)}">${esc(shortName(g.title))}</h2>
+            ${g.players ? `<span class="chip">👥 ${esc(g.players)}</span>` : ''}
+            <a class="fb" href="${esc(feedbackUrl(g))}" target="_blank" rel="noopener" title="Góp ý" aria-label="Góp ý ${esc(g.title)}">💬</a>
+            <a class="play" href="${href}">CHƠI</a>
+          </div>
+        </article>`;
+    }
+
+    fetch('./games.json', { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((data) => {
+        const box = document.getElementById('games');
+        box.innerHTML = data.games.length ? data.games.map(card).join('') : '';
+        if (!data.games.length) box.outerHTML = '<div class="empty">Chưa có game nào đang playtest.</div>';
+        document.getElementById('built').textContent =
+          `Link nội bộ, đừng chia sẻ công khai · cập nhật ${new Date(data.built_at).toLocaleString('vi-VN')}`;
+      })
+      .catch(() => {
+        document.getElementById('games').outerHTML = '<div class="empty">Không tải được danh sách game.</div>';
+      });
+  </script>
+</body>
+</html>

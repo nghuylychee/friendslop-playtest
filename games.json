@@ -1,0 +1,25 @@
+{
+  "built_at": "2026-11-14T13:34:10.996Z",
+  "games": [
+    {
+      "slug": "build-it-together",
+      "title": "Build It Together",
+      "pitch": "Làm thợ hồ cùng bạn bè — trộn vữa, lái cẩu, xây nhà và giữ nó mãi trong khu phố của đội",
+      "version": "0.2.0",
+      "players": "1-4",
+      "feedback_url": "",
+      "updated": "2026-11-14",
+      "thumb": "build-it-together/thumb.jpg"
+    },
+    {
+      "slug": "game-zero",
+      "title": "Moving Day",
+      "pitch": "Khiêng đồ từ nhà ra xe tải trước khi hết giờ; đồ nặng phải khiêng chung, va đập là mất tiền",
+      "version": "0.1.0",
+      "players": "1-4",
+      "feedback_url": "",
+      "updated": "2026-11-14",
+      "thumb": "game-zero/thumb.jpg"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+name: Feedback playtest
+description: Góp ý sau khi chơi thử một game
+title: "[feedback] "
+labels: [feedback]
+body:
+  - type: input
+    id: game
+    attributes:
+      label: Game
+      description: Tên hoặc slug game (vd. trong link …/friendslop-playtest/<slug>/)
+    validations:
+      required: true
+  - type: dropdown
+    id: fun
+    attributes:
+      label: Độ vui (1–5)
+      options: ["1 — chán", "2", "3", "4", "5 — cười không ngừng"]
+    validations:
+      required: true
+  - type: input
+    id: players
+    attributes:
+      label: Chơi mấy người?
+  - type: textarea
+    id: funniest
+    attributes:
+      label: Khoảnh khắc buồn cười nhất
+  - type: textarea
+    id: boring
+    attributes:
+      label: Chỗ chán / khó chịu nhất
+  - type: textarea
+    id: bugs
+    attributes:
+      label: Bug gặp phải (nếu có)
